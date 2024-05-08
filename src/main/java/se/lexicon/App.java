@@ -1,13 +1,25 @@
 package se.lexicon;
 
-/**
- * Hello world!
- *
- */
-public class App 
+
+import se.lexicon.dao.PersonDao;
+import se.lexicon.dao.daoimpl.PersonDaoImpl;
+import se.lexicon.model.Person;
+
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        // Create a PersonDao object
+        PersonDao personDao = new PersonDaoImpl();
+
+        // Create a Person object
+        Person person = new Person("John", "Doe");
+
+        // Add Person to database
+        Person createdPerson = personDao.create(person);
+        System.out.println("Created Person: " + createdPerson);
+
+
+
     }
 }
