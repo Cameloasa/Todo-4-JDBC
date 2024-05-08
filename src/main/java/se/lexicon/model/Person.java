@@ -1,38 +1,38 @@
 package se.lexicon.model;
 
 public class Person {
-    private int id;
-    private String firstName;
-    private String lastName;
+    private int person_id;
+    private String first_name;
+    private String last_name;
 
     //Default constructor
     public Person() {
     }
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Person(String first_name, String last_name) {
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
 
     //Overloaded constructor
-    public Person(int id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Person(int person_id, String first_name, String last_name) {
+        this.person_id = person_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
     //Getters
     public int getId() {
-        return id;
+        return person_id;
     }
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
     //Setters
     public void setId(int id) {
-        this.id = id;
+        this.person_id = id;
     }
 
     //toString
@@ -41,9 +41,9 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "person_id=" + person_id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
                 '}';
     }
 }

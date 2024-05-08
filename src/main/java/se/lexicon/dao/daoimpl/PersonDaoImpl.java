@@ -1,7 +1,7 @@
 package se.lexicon.dao.daoimpl;
 
 import se.lexicon.dao.PersonDao;
-import se.lexicon.db.MySQL;
+import se.lexicon.db.MySQLConnection;
 import se.lexicon.model.Person;
 
 import java.sql.Connection;
@@ -15,19 +15,20 @@ import java.util.List;
 public class PersonDaoImpl implements PersonDao {
 
     private Connection connection;
+
     //Extract Person from ResultSet
     private Person extractPersonFromResultSet(ResultSet resultSet) throws SQLException {
-        // get - id, firstName, lastName - return Person
-        int id = resultSet.getInt("id");
-        String firstName = resultSet.getString("firstName");
-        String lastName = resultSet.getString("lastName");
-        return new Person(id, firstName, lastName);
+        // get - id, first_name, last_name - return Person
+        int person_id = resultSet.getInt("person_id");
+        String first_name = resultSet.getString("first_name");
+        String last_name = resultSet.getString("last_name");
+        return new Person(person_id, first_name, last_name);
     }
 
 
     // Constructor
     public PersonDaoImpl() {
-        this.connection = MySQL.getConnection();
+        this.connection = MySQLConnection.getConnection();
     }
 
     @Override
@@ -37,8 +38,8 @@ public class PersonDaoImpl implements PersonDao {
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             // Set parameters
-            statement.setString(1, person.getFirstName());
-            statement.setString(2, person.getLastName());
+            statement.setString(1, person.getFirst_name());
+            statement.setString(2, person.getLast_name());
             // Execute
             int affectedRows = statement.executeUpdate();
             // Check
@@ -58,14 +59,14 @@ public class PersonDaoImpl implements PersonDao {
         return person;
     }
     @Override
-    public Person findById(int id) {
+    public Person findById(int person_id) {
         // SQL - SELECT * FROM Person WHERE id = ?
         String query = "SELECT * FROM Person WHERE id = ?";
         try {
             // Prepare statement
             PreparedStatement statement = connection.prepareStatement(query);
             // Set parameters
-            statement.setInt(1, id);
+            statement.setInt(1, person_id);
             // Execute
             ResultSet resultSet = statement.executeQuery();
             // Check
@@ -101,7 +102,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public Collection<Person> findByFirstName(String firstName) {
+    public Collection<Person> findByFirst_name(String first_name) {
         //Create a list
         List<Person> people = new ArrayList<>();
         // SQL - SELECT * FROM Person WHERE firstName = ?
@@ -109,7 +110,7 @@ public class PersonDaoImpl implements PersonDao {
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
-            statement.setString(1, firstName);
+            statement.setString(1, first_name);
             // Execute
             ResultSet resultSet = statement.executeQuery();
             // Check
@@ -123,7 +124,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public Collection<Person> findByLastName(String lastName) {
+    public Collection<Person> findByLast_name(String last_name) {
         //Create a list
         List<Person> people = new ArrayList<>();
         // SQL - SELECT * FROM Person WHERE lastName = ?
@@ -131,7 +132,7 @@ public class PersonDaoImpl implements PersonDao {
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
-            statement.setString(1, lastName);
+            statement.setString(1, last_name);
             // Execute
             ResultSet resultSet = statement.executeQuery();
             // Check
@@ -152,8 +153,8 @@ public class PersonDaoImpl implements PersonDao {
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
-            statement.setString(1, person.getFirstName());
-            statement.setString(2, person.getLastName());
+            statement.setString(1, person.getFirst_name());
+            statement.setString(2, person.getLast_name());
             statement.setInt(3, person.getId());
             // Execute
             int affectedRows = statement.executeUpdate();
@@ -168,13 +169,13 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int person_id) {
         // SQL - DELETE FROM Person WHERE id = ?
         String query = "DELETE FROM Person WHERE id = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
-            statement.setInt(1, id);
+            statement.setInt(1, person_id);
             // Execute
             int affectedRows = statement.executeUpdate();
             // Check

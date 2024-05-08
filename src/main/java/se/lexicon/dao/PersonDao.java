@@ -7,11 +7,10 @@ import java.util.Collection;
 public interface PersonDao {
 
     Person create(Person person);
-
-    Person findById(int id);
+    Person findById(int person_id);
     Collection<Person> findAll();
-    Collection<Person> findByFirstName(String firstName);
-    Collection<Person> findByLastName(String lastName);// <T
+    Collection<Person> findByFirst_name(String first_name);
+    Collection<Person> findByLast_name(String last_name);//
     Person update(Person person);
-    boolean delete(int id); // >
+    boolean delete(int person_id); // >
 }
