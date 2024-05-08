@@ -1,12 +1,16 @@
-package se.lexicon.daoimpl;
+package se.lexicon.dao.daoimpl;
 
 import se.lexicon.dao.PersonDao;
 import se.lexicon.model.Person;
 
+import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
 
 public class PersonDaoImpl implements PersonDao {
+
+    private Connection connection;
+
     @Override
     public Person create(Person person) {
         return null;
