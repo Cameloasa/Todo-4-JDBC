@@ -64,6 +64,14 @@ public class TodoItem {
         this.todo_id = todo_id;
     }
 
+    public void setAssignee_id(int assignee_id) {
+        this.assignee_id = assignee_id;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
     public boolean isAssignee(int person_id) {
         return this.assignee_id == person_id;
     }

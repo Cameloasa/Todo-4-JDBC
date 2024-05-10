@@ -59,6 +59,33 @@ public class App {
         //Add the new todoItem to the database
         TodoItem createdTodoItem = todoItemDao.create(newTodoItem);
         System.out.println("Created todoItem: " + createdTodoItem);
+
+        //Find a todoItem by ID
+        TodoItem findById = todoItemDao.findById(createdTodoItem.getTodo_id());
+        System.out.println("Found todoItem by ID: " + findById);
+
+        //Find all todoItems
+        Collection<TodoItem> allTodoItems = todoItemDao.findAll();
+        System.out.println("All todoItems: " + allTodoItems);
+
+        //Find todoItems by done status
+        Collection<TodoItem> byDoneStatus = todoItemDao.findByDoneStatus(false);
+        System.out.println("TodoItems with done status false: " + byDoneStatus);
+
+        //Find todoItems by assignee
+        Collection<TodoItem> byAssignee = todoItemDao.findByAssignee(1);
+        System.out.println("TodoItems with assignee: " + byAssignee);
+
+        //Update the todoItem
+        createdTodoItem.setAssignee_id(2);
+        createdTodoItem.setDone(true);
+        TodoItem updatedTodoItem = todoItemDao.update(createdTodoItem);
+        System.out.println("Updated todoItem: " + updatedTodoItem);
+
+        //Delete the todoItem
+        boolean deletedTodoItem = todoItemDao.deleteById(createdTodoItem.getTodo_id());
+        System.out.println("TodoItem deleted: " + deletedTodoItem);
+
     }
 
     }
