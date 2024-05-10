@@ -106,7 +106,7 @@ public class PersonDaoImpl implements PersonDao {
         //Create a list
         List<Person> people = new ArrayList<>();
         // SQL - SELECT * FROM Person WHERE firstName = ?
-        String query = "SELECT * FROM Person WHERE firstName = ?";
+        String query = "SELECT * FROM Person WHERE first_name = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
@@ -128,7 +128,7 @@ public class PersonDaoImpl implements PersonDao {
         //Create a list
         List<Person> people = new ArrayList<>();
         // SQL - SELECT * FROM Person WHERE lastName = ?
-        String query = "SELECT * FROM Person WHERE lastName = ?";
+        String query = "SELECT * FROM Person WHERE last_name = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
@@ -149,13 +149,13 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public Person update(Person person) {
         // SQL - UPDATE Person SET firstName = ?, lastName = ? WHERE id = ?
-        String query = "UPDATE Person SET firstName = ?, lastName = ? WHERE id = ?";
+        String query = "UPDATE Person SET first_name = ?, last_name = ? WHERE person_id = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters
             statement.setString(1, person.getFirst_name());
             statement.setString(2, person.getLast_name());
-            statement.setInt(3, person.getId());
+            statement.setInt(3, person.getPerson_id());
             // Execute
             int affectedRows = statement.executeUpdate();
             // Check
@@ -171,7 +171,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public boolean delete(int person_id) {
         // SQL - DELETE FROM Person WHERE id = ?
-        String query = "DELETE FROM Person WHERE id = ?";
+        String query = "DELETE FROM Person WHERE person_id = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             // Set parameters

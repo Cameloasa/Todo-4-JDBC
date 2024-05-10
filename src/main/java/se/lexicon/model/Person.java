@@ -21,7 +21,7 @@ public class Person {
         this.last_name = last_name;
     }
     //Getters
-    public int getId() {
+    public int getPerson_id() {
         return person_id;
     }
     public String getFirst_name() {
@@ -35,6 +35,13 @@ public class Person {
         this.person_id = id;
     }
 
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
     //toString
 
 
