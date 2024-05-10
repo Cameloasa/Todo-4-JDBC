@@ -95,36 +95,162 @@ public class TodoItemDaoImpl implements TodoItemDao{
 
     @Override
     public TodoItem findById(int todo_id) {
+        //SQL - SELECT * FROM TodoItem WHERE todo_id = ?
+        String query = "SELECT * FROM TodoItem WHERE todo_id = ?";
+        //Prepare Statement
+        try(PreparedStatement statement = connection.prepareStatement(query))
+        {
+            //Set parameters
+            statement.setInt(1, todo_id);
+            //Execute
+            ResultSet resultSet = statement.executeQuery();
+            //Check
+            if (resultSet.next()) {
+                return extractTodoItemFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public Collection<TodoItem> findByDoneStatus(boolean done) {
-        return List.of();
+        //Create a list
+        List<TodoItem> todoItems = new ArrayList<>();
+        //SQL - SELECT * FROM TodoItem WHERE done = ?
+        String query = "SELECT * FROM TodoItem WHERE done = ?";
+        //Prepare Statement
+        try(PreparedStatement statement = connection.prepareStatement(query))
+        {
+            //Set parameters
+            statement.setBoolean(1, done);
+            //Execute
+            ResultSet resultSet = statement.executeQuery();
+            //Check
+            while (resultSet.next()) {
+                todoItems.add(extractTodoItemFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return todoItems;
     }
 
     @Override
     public Collection<TodoItem> findByAssignee(int assignee_id) {
-        return List.of();
+        //Create a list
+        List<TodoItem> todoItems = new ArrayList<>();
+        //SQL - SELECT * FROM TodoItem WHERE assignee_id = ?
+        String query = "SELECT * FROM TodoItem WHERE assignee_id = ?";
+        //Prepare Statement
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            //Set parameters
+            statement.setInt(1, assignee_id);
+            //Execute
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    TodoItem todoItem = extractTodoItemFromResultSet(resultSet);
+                    todoItems.add(todoItem); // Add the extracted TodoItem to the list
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return todoItems;
     }
 
     @Override
     public Collection<TodoItem> findByAssignee(Person assignee) {
-        return List.of();
+        //Create a list
+        List<TodoItem> todoItems = new ArrayList<>();
+        //SQL - SELECT * FROM TodoItem WHERE assignee_id = ?
+        String query = "SELECT * FROM TodoItem WHERE assignee_id = ?";
+        //Prepare Statement
+        try(PreparedStatement statement = connection.prepareStatement(query))
+        {
+            //Set parameters
+            statement.setInt(1, assignee.getPerson_id());
+            //Execute
+            ResultSet resultSet = statement.executeQuery();
+            //Check
+            while (resultSet.next()) {
+                extractTodoItemFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return todoItems;
+
+
     }
 
     @Override
     public Collection<TodoItem> findByUnassignedTodoitems() {
-        return List.of();
+        List<TodoItem> todoItems = new ArrayList<>();
+        String query = "SELECT * FROM TodoItem WHERE assignee_id IS NULL";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    TodoItem todoItem = extractTodoItemFromResultSet(resultSet);
+                    todoItems.add(todoItem); // Add the extracted TodoItem to the list
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return todoItems;
     }
 
     @Override
     public TodoItem update(TodoItem todoItem) {
-        return null;
+        //SQL - UPDATE TodoItem SET title = ?, description = ?, deadline = ?, done = ?, assignee_id = ? WHERE todo_id = ?
+        String query = "UPDATE TodoItem SET title = ?, description = ?, deadline = ?, done = ?, assignee_id = ? WHERE todo_id = ?";
+        //Prepare Statement
+        try(PreparedStatement statement = connection.prepareStatement(query))
+        {
+            //Set parameters
+            statement.setString(1, todoItem.getTitle());
+            statement.setString(2, todoItem.getDescription());
+            statement.setDate(3, java.sql.Date.valueOf(todoItem.getDeadline()));
+            statement.setBoolean(4, todoItem.isDone());
+            statement.setInt(5, todoItem.getAssignee_id());
+            statement.setInt(6, todoItem.getTodo_id());
+            //Execute
+            int affectedRows = statement.executeUpdate();
+            //Check
+            if (affectedRows == 0) {
+                throw new SQLException("Updating todoItem failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return todoItem;//Return the updated todoItem
     }
 
     @Override
     public boolean deleteById(int todo_id) {
+        //SQL - DELETE FROM TodoItem WHERE todo_id = ?
+        String query = "DELETE FROM TodoItem WHERE todo_id = ?";
+        //Prepare Statement
+        try(PreparedStatement statement = connection.prepareStatement(query))
+        {
+            //Set parameters
+            statement.setInt(1, todo_id);
+            //Execute
+            int affectedRows = statement.executeUpdate();
+            //Check
+            if (affectedRows == 0) {
+                throw new SQLException("Deleting todoItem failed, no rows affected.");
+            }
+            //Return true if the delete was successful
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }//Return false if the delete was not successful
         return false;
     }
 }

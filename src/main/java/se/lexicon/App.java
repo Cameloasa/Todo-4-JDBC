@@ -58,6 +58,7 @@ public class App {
 
         //Add the new todoItem to the database
         TodoItem createdTodoItem = todoItemDao.create(newTodoItem);
+        System.out.println("Created todoItem: " + createdTodoItem);
     }
 
     }
