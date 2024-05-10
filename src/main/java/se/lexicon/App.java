@@ -1,11 +1,10 @@
 package se.lexicon;
 
 
-import se.lexicon.dao.PersonDao;
+import se.lexicon.dao.daoimpl.PersonDao;
 import se.lexicon.dao.daoimpl.PersonDaoImpl;
 import se.lexicon.model.Person;
 
-import java.sql.SQLException;
 import java.util.Collection;
 
 public class App {

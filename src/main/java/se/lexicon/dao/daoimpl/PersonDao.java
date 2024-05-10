@@ -1,4 +1,4 @@
-package se.lexicon.dao;
+package se.lexicon.dao.daoimpl;
 
 import se.lexicon.model.Person;
 
@@ -12,5 +12,5 @@ public interface PersonDao {
     Collection<Person> findByFirst_name(String first_name);
     Collection<Person> findByLast_name(String last_name);//
     Person update(Person person);
-    boolean delete(int person_id); // >
+    boolean delete(int person_id); //
 }

@@ -50,6 +50,12 @@ public class TodoItem {
         return assignee_id;
     }
 
+    //Setters
+
+
+    public void setTodo_id(int todo_id) {
+        this.todo_id = todo_id;
+    }
 
     public boolean isAssignee(int person_id) {
         return this.assignee_id == person_id;

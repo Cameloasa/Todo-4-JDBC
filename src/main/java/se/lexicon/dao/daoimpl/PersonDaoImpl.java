@@ -1,6 +1,5 @@
 package se.lexicon.dao.daoimpl;
 
-import se.lexicon.dao.PersonDao;
 import se.lexicon.db.MySQLConnection;
 import se.lexicon.model.Person;
 
@@ -33,7 +32,7 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Person create(Person person) {
-        // SQL - INSERT INTO Person (firstName, lastName) VALUES (?, ?)
+        // SQL - INSERT INTO Person (first_ame, last_name) VALUES (?, ?)
         String query = "INSERT INTO Person (first_name, last_name) VALUES (?, ?)";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -60,7 +59,7 @@ public class PersonDaoImpl implements PersonDao {
     }
     @Override
     public Person findById(int person_id) {
-        // SQL - SELECT * FROM Person WHERE id = ?
+        // SQL - SELECT * FROM Person WHERE person_id = ?
         String query = "SELECT * FROM Person WHERE person_id = ?";
         try {
             // Prepare statement
@@ -105,7 +104,7 @@ public class PersonDaoImpl implements PersonDao {
     public Collection<Person> findByFirst_name(String first_name) {
         //Create a list
         List<Person> people = new ArrayList<>();
-        // SQL - SELECT * FROM Person WHERE firstName = ?
+        // SQL - SELECT * FROM Person WHERE first_name = ?
         String query = "SELECT * FROM Person WHERE first_name = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -127,7 +126,7 @@ public class PersonDaoImpl implements PersonDao {
     public Collection<Person> findByLast_name(String last_name) {
         //Create a list
         List<Person> people = new ArrayList<>();
-        // SQL - SELECT * FROM Person WHERE lastName = ?
+        // SQL - SELECT * FROM Person WHERE last_name = ?
         String query = "SELECT * FROM Person WHERE last_name = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -148,7 +147,7 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Person update(Person person) {
-        // SQL - UPDATE Person SET firstName = ?, lastName = ? WHERE id = ?
+        // SQL - UPDATE Person SET first_ame = ?, last_name = ? WHERE person_id = ?
         String query = "UPDATE Person SET first_name = ?, last_name = ? WHERE person_id = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -170,7 +169,7 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public boolean delete(int person_id) {
-        // SQL - DELETE FROM Person WHERE id = ?
+        // SQL - DELETE FROM Person WHERE person_id = ?
         String query = "DELETE FROM Person WHERE person_id = ?";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
