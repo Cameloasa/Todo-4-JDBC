@@ -5,8 +5,11 @@ import se.lexicon.dao.PersonDao;
 import se.lexicon.dao.daoimpl.PersonDaoImpl;
 import se.lexicon.model.Person;
 
-public class App
-{
+import java.sql.SQLException;
+
+public class App {
+
+
     public static void main( String[] args ) {
         // Create a Person object
         Person person = new Person("John", "Doe");
@@ -14,13 +17,18 @@ public class App
         // Create a PersonDao object
         PersonDao personDao = new PersonDaoImpl();
 
+        try {
+            // Add the person to the database
+            Person createdPerson = personDao.create(person);
+            System.out.println("Created Person: " + createdPerson);
+        } catch (SQLException e) {
+            // Handle SQL exceptions
+            e.printStackTrace(); // Or log the exception
+        }
+    }
 
-        //todo
-        // Add Person to database
-        Person createdPerson = personDao.create(person);
-        System.out.println("Created Person: " + createdPerson);
 
 
 
     }
-}
+

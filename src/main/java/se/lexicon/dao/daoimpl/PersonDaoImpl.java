@@ -34,7 +34,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public Person create(Person person) {
         // SQL - INSERT INTO Person (firstName, lastName) VALUES (?, ?)
-        String query = "INSERT INTO Person (firstName, lastName) VALUES (?, ?)";
+        String query = "INSERT INTO Person (first_name, last_name) VALUES (?, ?)";
         // Prepare statement
         try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             // Set parameters
@@ -61,7 +61,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public Person findById(int person_id) {
         // SQL - SELECT * FROM Person WHERE id = ?
-        String query = "SELECT * FROM Person WHERE id = ?";
+        String query = "SELECT * FROM Person WHERE person_id = ?";
         try {
             // Prepare statement
             PreparedStatement statement = connection.prepareStatement(query);
