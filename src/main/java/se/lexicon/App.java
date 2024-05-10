@@ -3,8 +3,12 @@ package se.lexicon;
 
 import se.lexicon.dao.daoimpl.PersonDao;
 import se.lexicon.dao.daoimpl.PersonDaoImpl;
+import se.lexicon.dao.daoimpl.TodoItemDao;
+import se.lexicon.dao.daoimpl.TodoItemDaoImpl;
 import se.lexicon.model.Person;
+import se.lexicon.model.TodoItem;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 public class App {
@@ -45,6 +49,15 @@ public class App {
         // Delete the person
         boolean deleted = personDao.delete(createdPerson.getPerson_id());
         System.out.println("Person deleted: " + deleted);
+
+        //Create a new todoItem
+        TodoItem newTodoItem = new TodoItem("Buy milk", "Go to the grocery store", LocalDate.now(), false, 1);
+
+        //Create an instance of todoItemDao
+        TodoItemDao todoItemDao = new TodoItemDaoImpl();
+
+        //Add the new todoItem to the database
+        TodoItem createdTodoItem = todoItemDao.create(newTodoItem);
     }
 
     }

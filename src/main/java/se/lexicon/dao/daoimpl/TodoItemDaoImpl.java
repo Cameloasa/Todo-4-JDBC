@@ -28,7 +28,7 @@ public class TodoItemDaoImpl implements TodoItemDao{
         LocalDate deadline = resultSet.getDate("deadline").toLocalDate();
         boolean done = resultSet.getBoolean("done");
         int assignee_id = resultSet.getInt("assignee_id");
-        return new TodoItem(todo_id, title, description, deadline, done, assignee_id);
+        return new TodoItem(title, description, deadline, done, assignee_id);
     }
 
     //Constructor
@@ -82,14 +82,15 @@ public class TodoItemDaoImpl implements TodoItemDao{
             //Execute
             ResultSet resultSet = statement.executeQuery();
             //Check
-            if (resultSet.next()) {
-                return extractTodoItemFromResultSet(resultSet);
+            while (resultSet.next()) {
+                todoItems.add(extractTodoItemFromResultSet(resultSet));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return List.of();
+        return todoItems;
     }
 
     @Override

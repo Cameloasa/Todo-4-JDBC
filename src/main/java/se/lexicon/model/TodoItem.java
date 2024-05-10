@@ -14,12 +14,19 @@ public class TodoItem {
 
     }
 
-    public TodoItem(int todo_id, String title, String description, LocalDate deadline, boolean done, int assignee_id) {
+    public TodoItem(String title, String description, LocalDate deadline, boolean done, int assignee_id) {
         this.todo_id = todo_id;
         this.title = title;
         this.description = description;
         this.deadline = deadline;
         this.done = done;
+        this.assignee_id = assignee_id;
+    }
+
+    public TodoItem(String title, String description, LocalDate deadline, int assignee_id) {
+        this.title = title;
+        this.description = description;
+        this.deadline = deadline;
         this.assignee_id = assignee_id;
     }
 
