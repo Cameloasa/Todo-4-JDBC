@@ -38,8 +38,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
 
     @Override
     public TodoItem create(TodoItem todoItem) {
-        //SQL - INSERT INTO TodoItem (title, description, deadline, done, assignee_id) VALUES (?, ?, ?, ?, ?)
-        String query = "INSERT INTO TodoItem (title, description, deadline, done, assignee_id) VALUES (?, ?, ?, ?, ?)";
+        //SQL - INSERT INTO odo_item (title, description, deadline, done, assignee_id) VALUES (?, ?, ?, ?, ?)
+        String query = "INSERT INTO todo_item (title, description, deadline, done, assignee_id) VALUES (?, ?, ?, ?, ?)";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS))
         {;
@@ -53,14 +53,14 @@ public class TodoItemDaoImpl implements TodoItemDao{
             int affectedRows = statement.executeUpdate();
             //Check
             if (affectedRows == 0) {
-                throw new SQLException("Creating todoItem failed, no rows affected.");
+                throw new SQLException("Creating todo_item failed, no rows affected.");
             }
             try
                     (ResultSet generatedKeys = statement.getGeneratedKeys()){;
                 if (generatedKeys.next()) {
                     todoItem.setTodo_id(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating todoItem failed, no ID obtained.");
+                    throw new SQLException("Creating todo_item failed, no ID obtained.");
                 }
             }
             } catch (SQLException e) {
@@ -74,8 +74,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
     public Collection<TodoItem> findAll() {
         //Create a list
         List<TodoItem> todoItems = new ArrayList<>();
-        //SQL - SELECT * FROM TodoItem
-        String query = "SELECT * FROM TodoItem";
+        //SQL - SELECT * FROM todo_item
+        String query = "SELECT * FROM todo_item";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query))
         {
@@ -95,8 +95,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
 
     @Override
     public TodoItem findById(int todo_id) {
-        //SQL - SELECT * FROM TodoItem WHERE todo_id = ?
-        String query = "SELECT * FROM TodoItem WHERE todo_id = ?";
+        //SQL - SELECT * FROM todo_tem WHERE todo_id = ?
+        String query = "SELECT * FROM todo_item WHERE todo_id = ?";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query))
         {
@@ -118,8 +118,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
     public Collection<TodoItem> findByDoneStatus(boolean done) {
         //Create a list
         List<TodoItem> todoItems = new ArrayList<>();
-        //SQL - SELECT * FROM TodoItem WHERE done = ?
-        String query = "SELECT * FROM TodoItem WHERE done = ?";
+        //SQL - SELECT * FROM todo_item WHERE done = ?
+        String query = "SELECT * FROM todo_item WHERE done = ?";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query))
         {
@@ -141,8 +141,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
     public Collection<TodoItem> findByAssignee(int assignee_id) {
         //Create a list
         List<TodoItem> todoItems = new ArrayList<>();
-        //SQL - SELECT * FROM TodoItem WHERE assignee_id = ?
-        String query = "SELECT * FROM TodoItem WHERE assignee_id = ?";
+        //SQL - SELECT * FROM todo_item WHERE assignee_id = ?
+        String query = "SELECT * FROM todo_item WHERE assignee_id = ?";
         //Prepare Statement
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             //Set parameters
@@ -165,8 +165,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
     public Collection<TodoItem> findByAssignee(Person assignee) {
         //Create a list
         List<TodoItem> todoItems = new ArrayList<>();
-        //SQL - SELECT * FROM TodoItem WHERE assignee_id = ?
-        String query = "SELECT * FROM TodoItem WHERE assignee_id = ?";
+        //SQL - SELECT * FROM todo_item WHERE assignee_id = ?
+        String query = "SELECT * FROM todo_item WHERE assignee_id = ?";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query))
         {
@@ -189,7 +189,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
     @Override
     public Collection<TodoItem> findByUnassignedTodoitems() {
         List<TodoItem> todoItems = new ArrayList<>();
-        String query = "SELECT * FROM TodoItem WHERE assignee_id IS NULL";
+        //SQL - SELECT * FROM todo_item WHERE assignee_id IS NULL
+        String query = "SELECT * FROM todo_item WHERE assignee_id IS NULL";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -207,8 +208,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
 
     @Override
     public TodoItem update(TodoItem todoItem) {
-        //SQL - UPDATE TodoItem SET title = ?, description = ?, deadline = ?, done = ?, assignee_id = ? WHERE todo_id = ?
-        String query = "UPDATE TodoItem SET title = ?, description = ?, deadline = ?, done = ?, assignee_id = ? WHERE todo_id = ?";
+        //SQL - UPDATE todo_item SET title = ?, description = ?, deadline = ?, done = ?, assignee_id = ? WHERE todo_id = ?
+        String query = "UPDATE todo_item SET title = ?, description = ?, deadline = ?, done = ?, assignee_id = ? WHERE todo_id = ?";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query))
         {
@@ -223,7 +224,7 @@ public class TodoItemDaoImpl implements TodoItemDao{
             int affectedRows = statement.executeUpdate();
             //Check
             if (affectedRows == 0) {
-                throw new SQLException("Updating todoItem failed, no rows affected.");
+                throw new SQLException("Updating todo_item failed, no rows affected.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -233,8 +234,8 @@ public class TodoItemDaoImpl implements TodoItemDao{
 
     @Override
     public boolean deleteById(int todo_id) {
-        //SQL - DELETE FROM TodoItem WHERE todo_id = ?
-        String query = "DELETE FROM TodoItem WHERE todo_id = ?";
+        //SQL - DELETE FROM todo_item WHERE todo_id = ?
+        String query = "DELETE FROM todo_item WHERE todo_id = ?";
         //Prepare Statement
         try(PreparedStatement statement = connection.prepareStatement(query))
         {
@@ -244,7 +245,7 @@ public class TodoItemDaoImpl implements TodoItemDao{
             int affectedRows = statement.executeUpdate();
             //Check
             if (affectedRows == 0) {
-                throw new SQLException("Deleting todoItem failed, no rows affected.");
+                throw new SQLException("Deleting todo_item failed, no rows affected.");
             }
             //Return true if the delete was successful
             return true;
